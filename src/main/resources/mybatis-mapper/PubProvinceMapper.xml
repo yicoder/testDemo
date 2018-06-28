@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这块等于dao接口的实现 namespace必须和接口的类路径一样 -->
+<mapper namespace="com.yicoder.mybatis.PubProvinceDAO">
+
+    <resultMap id="BaseResultMap" type="PubProvincesDO">
+        <id property="id" column="id" jdbcType="NUMERIC" />
+        <result property="provinceid" column="provinceid" jdbcType="VARCHAR" />
+        <result property="province" column="province" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectPorvince" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM pub_provinces
+        WHERE 1 = 1
+        <if test="provinceid != null and provinceid !=''">
+            AND provinceid like concat('%',#{provinceid,jdbcType=VARCHAR},'%')
+        </if>
+        ORDER BY provinceid
+    </select>
+
+    <select id="selectPorvinceByRowBounds" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM pub_provinces
+        WHERE 1 = 1
+        <if test="provinceid != null and provinceid !=''">
+            AND provinceid like concat('%',#{provinceid,jdbcType=VARCHAR},'%')
+        </if>
+        ORDER BY provinceid
+    </select>
+    <select id="selectPorvinceByOffsetPage" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+        FROM pub_provinces
+        WHERE 1 = 1
+        <if test="provinceid != null and provinceid !=''">
+            AND provinceid like concat('%',#{provinceid,jdbcType=VARCHAR},'%')
+        </if>
+        ORDER BY provinceid
+    </select>
+</mapper>

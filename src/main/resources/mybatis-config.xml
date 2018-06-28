@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="true" />
+        <setting name="lazyLoadingEnabled" value="true" />
+        <setting name="multipleResultSetsEnabled" value="true" />
+        <setting name="useColumnLabel" value="true" />
+        <setting name="useGeneratedKeys" value="true" />
+        <setting name="defaultExecutorType" value="SIMPLE" />
+        <setting name="defaultStatementTimeout" value="25000" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.yicoder.mybatis.PubProvincesDO" alias="PubProvincesDO" />
+    </typeAliases>
+
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--分页插件会自动检测当前的数据库链接，自动选择合适的分页方式-->
+            <!-- 你可以配置helperDialect属性来指定分页插件使用哪种方言。配置时，可以使用下面的缩写值：
+                oracle,mysql,mariadb,sqlite,hsqldb,postgresql,db2,sqlserver,informix,h2,sqlserver2012,derby -->
+            <property name="helperDialect" value="PostgreSQL"/>
+            <!-- 默认值为 false，该参数对使用 RowBounds 作为分页参数时有效。 -->
+            <!-- 当该参数设置为 true 时，会将 RowBounds 中的 offset 参数当成 pageNum 使用， -->
+            <!-- 可以用页码和页面大小两个参数进行分页。-->
+            <property name="offsetAsPageNum" value="true"/>
+            <!-- 默认值为false，该参数对使用 RowBounds 作为分页参数时有效。  -->
+            <!-- 当该参数设置为true时，使用 RowBounds 分页会进行 count 查询。 -->
+            <property name="rowBoundsWithCount" value="true"/>
+            <!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+            <!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）-->
+            <property name="pageSizeZero" value="true"/>
+            <!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 -->
+            <!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
+            <!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
+            <property name="reasonable" value="false"/>
+            <!-- 3.5.0版本可用 - 为了支持startPage(Object params)方法 -->
+            <!-- 增加了一个`params`参数来配置参数映射，为了支持startPage(Object params)方法， -->
+            <!-- 增加了该参数来配置参数映射，用于从对象中根据属性名取值，
+            可以配置 pageNum,pageSize,count,pageSizeZero,reasonable，不配置映射的用默认值，
+            默认值为pageNum=pageNum;pageSize=pageSize;count=countSql;reasonable=reasonable;pageSizeZero=pageSizeZero。-->
+            <!-- 不理解该含义的前提下，不要随便复制该配置 -->
+            <!--<property name="params" value="pageNum=start;pageSize=limit;"/>-->
+            <!-- 支持通过Mapper接口参数来传递分页参数分页插件会从查询方法的参数值中， -->
+            <!--自动根据上面 params 配置的字段中取值，查找到合适的值时就会自动分页。-->
+            <!--<property name="supportMethodsArguments" value="true"/>-->
+        </plugin>
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="org.postgresql.Driver" />
+                <property name="url"
+                          value="jdbc:postgresql://172.16.36.71:5432/s-base?charSet=utf-8" />
+                <property name="username" value="postgres" />
+                <property name="password" value="suneeedba" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mybatis-mapper/PubProvinceMapper.xml" />
+    </mappers>
+</configuration>
