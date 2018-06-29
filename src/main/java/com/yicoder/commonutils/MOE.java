@@ -92,8 +92,7 @@ public class MOE {
     public static void main(String[] args) {
         long starttime = System.currentTimeMillis();
         System.out.println("蚁群算法开始：");
-        System.out.println("蚁群算法开始：");
-        System.out.println("蚁群算法开始：");
+
         System.out.println("starttime:" + starttime);
 
 //        int[][] cityDot = new int[][] {
